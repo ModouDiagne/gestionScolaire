@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NiveauController;
-
+use App\Http\Controllers\SchoolYearController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,5 +26,13 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    Route::get('/niveaux', [NiveauController::class, 'index'])->name('niveaux');
+    // Group for Niveau routes
+    Route::prefix('niveaux')->group(function () {
+        Route::get('/', [NiveauController::class, 'index'])->name('niveaux');
+    });
+
+    Route::prefix('settings')->group(function () {
+        Route::get('/', [SchoolYearController::class, 'index'])->name('settings');
+    });
+
 });
